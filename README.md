@@ -1,0 +1,1 @@
+Here lie hacky scripts to contextually erase subtitles from videos captured from The idolm@ster Platinum Stars.
