@@ -1,11 +1,15 @@
 import numpy as np
 import cv2
 
+x_start = 254
+x_end = 1030
+y_start = 595
+y_end = 680
+
 
 def erase_subs(img):
-    # img = cv2.imread("/home/alan/cap3.jpg", cv2.IMREAD_COLOR)
     greyscale = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    cropped = greyscale[595:680, 254:1030].copy()
+    cropped = greyscale[y_start:y_end, x_start:x_end].copy()
 
     _, thresholded = cv2.threshold(cropped, 200, 255, cv2.THRESH_BINARY)
 
@@ -15,6 +19,7 @@ def erase_subs(img):
     cv2.imshow('dilation', dilated)
 
     cleaned = img.copy()
-    cleaned[595:680, 254:1030] = cv2.inpaint(img[595:680, 254:1030], dilated, 5, cv2.INPAINT_TELEA)
+    cleaned[y_start:y_end, x_start:x_end] = cv2.inpaint(img[y_start:y_end, x_start:x_end], dilated, 5,
+                                                        cv2.INPAINT_TELEA)
 
     return cleaned
