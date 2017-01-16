@@ -1,0 +1,8 @@
+ideas
+    join the lines
+        energy function
+        closest point (what if multiple points)
+        temporal function - use data from previous frames
+    hybrid
+        use first frame before dialog box, remove movement
+        
