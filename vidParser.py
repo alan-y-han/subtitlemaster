@@ -2,29 +2,30 @@ import numpy as np
 import cv2
 import ScrubFrame
 
-cap = cv2.VideoCapture('/home/alan/idolmaster/part1.mp4')
+video_in = cv2.VideoCapture('/home/alan/idolmaster/part1.mp4')
 
-# vwriter = cv2.VideoWriter('/home/alan/idolmaster_test.mp4',
-#                           cv2.VideoWriter_fourcc(*'X264'),
-#                           30,
-#                           (1280, 720))
+video_out = cv2.VideoWriter('/home/alan/idolmaster_test.mp4',
+                            cv2.VideoWriter_fourcc(*'X264'),
+                            30,
+                            (1280, 720))
 
 counter = 0
 
-while cap.isOpened():
-    counter += 1
+# no_frames = cap.get(cv2.)
 
-    _, frame = cap.read()
+while video_in.isOpened():
+    ret, frame = video_in.read()
 
-    cleanedFrame = ScrubFrame.erase_subs(frame)
+    if ret:
+        counter += 1
+        cleanedFrame = ScrubFrame.erase_subs(frame)
 
-    # cv2.imshow('ori frame', frame)
-    # cv2.imshow('clean frame', cleanedFrame)
-    # cv2.waitKey(0)
-    cv2.imwrite('/media/alan/Transcend/temp/frame' + str(counter) + '.png', cleanedFrame)
+        # cv2.imwrite('/media/alan/Transcend/temp/frame' + str(counter) + '.png', cleanedFrame)
+        video_out.write(cleanedFrame)
+        print('Processed frame ' + str(counter))
+    else:
+        break
 
-    # if counter > 10:
-    #     break
-
-cap.release()
+video_in.release()
+video_out.release()
 cv2.destroyAllWindows()
